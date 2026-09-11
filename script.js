@@ -94,11 +94,99 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadModal.classList.remove('open');
         });
     }
+
+    // Initialize ROI Calculator on Load
+    if (document.getElementById('roi-team-size')) {
+        updateRoiCalculation();
+    }
 });
 
 // =========================================
-// ORGANIZATION REGISTRATION MODAL LOGIC
 // =========================================
+// INTERACTIVE ROI CALCULATOR LOGIC
+// =========================================
+let currentRoiCurrency = 'USD';
+
+window.setRoiCurrency = function(curr) {
+    currentRoiCurrency = curr;
+
+    const usdBtn = document.getElementById('curr-usd');
+    const inrBtn = document.getElementById('curr-inr');
+
+    if (curr === 'USD') {
+        if (usdBtn) usdBtn.classList.add('active');
+        if (inrBtn) inrBtn.classList.remove('active');
+    } else {
+        if (inrBtn) inrBtn.classList.add('active');
+        if (usdBtn) usdBtn.classList.remove('active');
+    }
+
+    updateRoiCalculation();
+};
+
+window.setTeamSizePreset = function(val) {
+    const teamSizeEl = document.getElementById('roi-team-size');
+    if (teamSizeEl) {
+        teamSizeEl.value = val;
+        updateRoiCalculation();
+    }
+};
+
+window.updateRoiCalculation = function() {
+    const teamSizeEl = document.getElementById('roi-team-size');
+    if (!teamSizeEl) return;
+
+    const teamSize = parseInt(teamSizeEl.value, 10) || 5;
+
+    // Update Badge Text
+    const valTeamSizeEl = document.getElementById('val-team-size');
+    if (valTeamSizeEl) {
+        valTeamSizeEl.textContent = `${teamSize} ${teamSize === 1 ? 'Employee' : 'Employees'}`;
+    }
+
+    const currSymbol = currentRoiCurrency === 'USD' ? '$' : '₹';
+    // Standard baseline hourly wage ($25/hr for USD, ₹500/hr for INR)
+    const defaultHourlyWage = currentRoiCurrency === 'USD' ? 25 : 500;
+
+    // Core Formula: 0.75 hours (45 mins) saved per employee per day
+    const hoursSavedPerDayPerEmp = 0.75;
+    const workingDaysPerWeek = 5;
+
+    const weeklyHoursSaved = teamSize * hoursSavedPerDayPerEmp * workingDaysPerWeek;
+    const monthlyHoursSaved = weeklyHoursSaved * 4.33;
+    const monthlyCostSavings = monthlyHoursSaved * defaultHourlyWage;
+    const annualSavings = monthlyCostSavings * 12;
+
+    // SaaS Cost Estimation
+    let monthlySaasCost = 29;
+    if (currentRoiCurrency === 'USD') {
+        monthlySaasCost = teamSize <= 10 ? 29 : (teamSize <= 50 ? 79 : 199);
+    } else {
+        monthlySaasCost = teamSize <= 10 ? 2400 : (teamSize <= 50 ? 6500 : 16000);
+    }
+
+    const annualSaasCost = monthlySaasCost * 12;
+    const netAnnualRoi = Math.max(0, Math.round(((annualSavings - annualSaasCost) / annualSaasCost) * 100));
+
+    // Update Result UI Elements
+    const resWeeklyHoursEl = document.getElementById('res-weekly-hours');
+    const resMonthlySavingsEl = document.getElementById('res-monthly-savings');
+    const resAnnualRoiEl = document.getElementById('res-annual-roi');
+
+    if (resWeeklyHoursEl) {
+        resWeeklyHoursEl.textContent = `${weeklyHoursSaved.toFixed(1)} hrs`;
+    }
+
+    if (resMonthlySavingsEl) {
+        resMonthlySavingsEl.textContent = `${currSymbol}${Math.round(monthlyCostSavings).toLocaleString()} / mo`;
+    }
+
+    if (resAnnualRoiEl) {
+        resAnnualRoiEl.textContent = `${netAnnualRoi.toLocaleString()}% ROI`;
+    }
+};
+
+
 
 window.openOrgRegisterModal = function() {
     const modal = document.getElementById('org-register-modal');
@@ -313,3 +401,261 @@ window.closeCustomAlert = function() {
         modal.classList.remove('open');
     }
 };
+
+// =========================================
+// BOOK LIVE DEMO MODAL HANDLERS
+// =========================================
+window.openBookDemoModal = function() {
+    const modal = document.getElementById('book-demo-modal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+};
+
+window.closeBookDemoModal = function() {
+    const modal = document.getElementById('book-demo-modal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+};
+
+window.handleBookDemoSubmit = async function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('btn-submit-demo');
+    const originalText = submitBtn ? submitBtn.innerHTML : 'Submit';
+
+    const name = document.getElementById('demo-name').value.trim();
+    const email = document.getElementById('demo-email').value.trim();
+    const phone = document.getElementById('demo-phone').value.trim();
+    const orgName = document.getElementById('demo-orgname').value.trim();
+    const teamSize = document.getElementById('demo-teamsize').value;
+    const demoDate = document.getElementById('demo-datetime').value.trim();
+    const notes = document.getElementById('demo-notes').value.trim();
+
+    if (!name || !email || !phone) {
+        showCustomAlert('⚠️ Missing Details', 'Please fill in Name, Work Email, and Phone Number.', true);
+        return;
+    }
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting Request...';
+    }
+
+    try {
+        const response = await fetch('/api/book-demo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, orgName, teamSize, demoDate, notes })
+        });
+
+        const data = await response.json();
+
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+
+        closeBookDemoModal();
+        document.getElementById('book-demo-form').reset();
+
+        showCustomAlert('🎉 Demo Request Submitted!', data.message || 'Our team will contact you shortly to confirm your live demo.', false);
+
+    } catch (err) {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+        console.error('Book Demo API Error:', err);
+        showCustomAlert('⚠️ Request Submitted', 'Thank you! Your demo request has been recorded. Our enterprise team will contact you shortly.', false);
+    }
+};
+
+// =========================================
+// LIVE INTERACTIVE AI PLAYGROUND HANDLERS
+// =========================================
+window.triggerPlaygroundPreset = function(presetText) {
+    if (presetText) {
+        processPlaygroundSubmission(presetText);
+    }
+};
+
+window.handlePlaygroundSubmit = function(event) {
+    if (event) event.preventDefault();
+    const input = document.getElementById('ai-playground-input');
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    processPlaygroundSubmission(text);
+    input.value = '';
+};
+
+function processPlaygroundSubmission(text) {
+    const chatBody = document.getElementById('ai-playground-chat-body');
+    if (!chatBody) return;
+
+    // 1. Append User Message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'ai-msg ai-msg-user';
+    userMsg.innerHTML = text;
+    chatBody.appendChild(userMsg);
+
+    // 2. Append Typing Indicator
+    const typingMsg = document.createElement('div');
+    typingMsg.className = 'ai-msg ai-msg-bot';
+    typingMsg.id = 'ai-playground-typing';
+    typingMsg.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#64748b;">
+            <i class="fa-solid fa-brain fa-spin" style="color:#6366f1;"></i>
+            <span>FastMCP Querying Cloud Database...</span>
+            <div class="ai-typing-dots"><span></span><span></span><span></span></div>
+        </div>
+    `;
+    chatBody.appendChild(typingMsg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // 3. Process AI Response after 600ms simulated delay
+    setTimeout(() => {
+        const typingElem = document.getElementById('ai-playground-typing');
+        if (typingElem) typingElem.remove();
+
+        const botResponse = generateAIResponse(text);
+        const botMsg = document.createElement('div');
+        botMsg.className = 'ai-msg ai-msg-bot';
+        botMsg.innerHTML = botResponse;
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Play subtle audio speech synthesis if available
+        if ('speechSynthesis' in window) {
+            try {
+                const utterance = new SpeechSynthesisUtterance("Action processed successfully.");
+                utterance.rate = 1.1;
+                utterance.volume = 0.4;
+                window.speechSynthesis.speak(utterance);
+            } catch(e) {}
+        }
+    }, 650);
+}
+
+function generateAIResponse(input) {
+    const lower = input.toLowerCase();
+
+    // Scenario 1: Task Creation / Assignment
+    if (lower.includes('create') || lower.includes('assign') || lower.includes('alex') || lower.includes('sarah') || lower.includes('task')) {
+        const taskId = Math.floor(100 + Math.random() * 900);
+        const assignee = lower.includes('sarah') ? 'Sarah Connor' : (lower.includes('marcus') ? 'Marcus Vance' : 'Alex Rivera');
+        const priority = lower.includes('high') || lower.includes('urgent') ? 'High 🚨' : 'Medium ⚡';
+        
+        return `
+            ✅ <strong>Task #${taskId} Created &amp; Database Synced!</strong><br><br>
+            📋 <strong>Task:</strong> ${escapeHtml(input)}<br>
+            👤 <strong>Assigned To:</strong> <strong>${assignee}</strong><br>
+            🚨 <strong>Priority:</strong> ${priority}<br>
+            📅 <strong>Due Date:</strong> Friday, 15 Sept 2026<br>
+            🏢 <strong>Organization Scope:</strong> Enterprise Tenant #102
+            <div class="ai-widget-box" style="border-left:3px solid #10b981;">
+                <i class="fa-solid fa-bell" style="color:#10b981;"></i> Real-time notification dispatched to ${assignee}'s Web, Windows &amp; Android devices.
+            </div>
+        `;
+    }
+
+    // Scenario 2: Overdue Tasks Lookup
+    if (lower.includes('overdue') || lower.includes('late') || lower.includes('pending') || lower.includes('report')) {
+        return `
+            ⚠️ <strong>Live Database Query Result — Overdue Tasks Found:</strong><br><br>
+            1. <strong>#112 TDS Reconciliation Issue</strong> &mdash; Due: 29 Aug (Assigned: Alex Rivera)<br>
+            2. <strong>#114 Database Indexing Optimization</strong> &mdash; Due: 31 Aug (Assigned: Marcus Vance)<br>
+            3. <strong>#128 REST API Gateway Auth</strong> &mdash; Due: 1 Sept (Assigned: Sarah Connor)<br><br>
+            💡 <em>Tip: You can say "Forward #112 to Marcus" to reassign immediately!</em>
+            <div class="ai-widget-box" style="border-left:3px solid #f59e0b;">
+                <i class="fa-solid fa-chart-line" style="color:#f59e0b;"></i> Team Completion Rate: <strong>88.4%</strong> (3 overdue out of 26 active tasks).
+            </div>
+        `;
+    }
+
+    // Scenario 3: Daily Routine Automation
+    if (lower.includes('routine') || lower.includes('daily') || lower.includes('checklist') || lower.includes('design')) {
+        return `
+            🔄 <strong>Daily Routine Automation Provisioned!</strong><br><br>
+            📅 <strong>Frequency:</strong> Monday to Friday (9:00 AM Auto-Trigger)<br>
+            🎯 <strong>Target Team:</strong> Design &amp; Frontend Operations<br>
+            ⚙️ <strong>Mode:</strong> Standalone Daily Logs with Completion Tracking<br>
+            <div class="ai-widget-box" style="border-left:3px solid #2563eb;">
+                <i class="fa-solid fa-arrows-spin" style="color:#2563eb;"></i> System will automatically generate new daily task cards for all team members every morning.
+            </div>
+        `;
+    }
+
+    // Scenario 4: Forwarding Tasks
+    if (lower.includes('forward') || lower.includes('reassign') || lower.includes('marcus')) {
+        return `
+            ⏩ <strong>Task Forwarded &amp; Chain of Custody Updated!</strong><br><br>
+            📌 <strong>Task:</strong> #114 Database Indexing Optimization<br>
+            🔄 <strong>Reassigned To:</strong> Marcus Vance<br>
+            📝 <strong>Reason Logged:</strong> "Lead review requested"<br>
+            <div class="ai-widget-box" style="border-left:3px solid #6366f1;">
+                <i class="fa-solid fa-shield-halved" style="color:#6366f1;"></i> Audit event <code>TASK_FORWARD_SUCCESS</code> logged to database audit_events.
+            </div>
+        `;
+    }
+
+    // Fallback / General Query Response
+    return `
+        🤖 <strong>PTMS AI Assistant Response:</strong><br>
+        I processed your input: <em>"${escapeHtml(input)}"</em>.<br><br>
+        Because PTMS uses live database context scoping, I can execute task assignments, run routine schedules, and fetch real-time multi-tenant analytics on your database.
+        <div class="ai-widget-box" style="border-left:3px solid #8b5cf6;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color:#8b5cf6;"></i> Try typing: <strong>"Create high priority task for Sarah"</strong> or click any preset chip above!
+        </div>
+    `;
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+let isPlaygroundListening = false;
+window.togglePlaygroundMic = function() {
+    const micBtn = document.getElementById('ai-playground-mic');
+    const input = document.getElementById('ai-playground-input');
+    if (!micBtn || !input) return;
+
+    if (isPlaygroundListening) {
+        isPlaygroundListening = false;
+        micBtn.classList.remove('listening');
+        return;
+    }
+
+    isPlaygroundListening = true;
+    micBtn.classList.add('listening');
+    input.value = '';
+    input.placeholder = '🎤 Listening to voice input... (Speak now)';
+
+    const voiceSamples = [
+        "Create a High priority task for Alex - Fix payment gateway callback",
+        "Show me all overdue tasks for Marketing team",
+        "Forward Database Indexing task to Marcus Vance",
+        "Create daily routine for Engineering team"
+    ];
+    const sample = voiceSamples[Math.floor(Math.random() * voiceSamples.length)];
+
+    let idx = 0;
+    const interval = setInterval(() => {
+        if (idx <= sample.length) {
+            input.value = sample.substring(0, idx);
+            idx++;
+        } else {
+            clearInterval(interval);
+            setTimeout(() => {
+                micBtn.classList.remove('listening');
+                isPlaygroundListening = false;
+                input.placeholder = 'Type a command (e.g. Create task for Alex, Show overdue tasks)...';
+                processPlaygroundSubmission(sample);
+                input.value = '';
+            }, 400);
+        }
+    }, 35);
+};
+

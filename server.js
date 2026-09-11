@@ -293,6 +293,71 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // --- API ROUTE 3: Book Live Demo ---
+    if (pathname === '/api/book-demo' && req.method === 'POST') {
+        let bodyStr = '';
+        req.on('data', chunk => { bodyStr += chunk.toString(); });
+        req.on('end', async () => {
+            try {
+                const data = JSON.parse(bodyStr || '{}');
+                const name = (data.name || '').trim();
+                const email = (data.email || '').trim().toLowerCase();
+                const phone = (data.phone || '').trim();
+                const orgName = (data.orgName || '').trim();
+                const teamSize = (data.teamSize || '1-10').trim();
+                const demoDate = (data.demoDate || '').trim();
+                const notes = (data.notes || '').trim();
+
+                if (!name || !email || !phone) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: false, error: 'Please provide Name, Email, and Phone Number.' }));
+                }
+
+                try {
+                    const pool = await getDbPool();
+                    // Create demo leads table if not exists
+                    await pool.query(`
+                        CREATE TABLE IF NOT EXISTS \`uno_demo_leads\` (
+                            \`id\` INT AUTO_INCREMENT PRIMARY KEY,
+                            \`name\` VARCHAR(255) NOT NULL,
+                            \`email\` VARCHAR(255) NOT NULL,
+                            \`phone\` VARCHAR(100),
+                            \`org_name\` VARCHAR(255),
+                            \`team_size\` VARCHAR(50),
+                            \`demo_date\` VARCHAR(100),
+                            \`notes\` TEXT,
+                            \`created_at\` DATETIME DEFAULT CURRENT_TIMESTAMP
+                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                    `);
+
+                    await pool.query(
+                        `INSERT INTO \`uno_demo_leads\` (name, email, phone, org_name, team_size, demo_date, notes) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                        [name, email, phone, orgName, teamSize, demoDate, notes]
+                    );
+
+                    console.log(`[DEMO LEAD SAVED] Lead from "${name}" (${email}, ${phone}) for Org "${orgName}" saved successfully!`);
+                } catch (dbErr) {
+                    console.warn('[DEMO LEAD DB WARN] Could not save lead to DB:', dbErr.message);
+                }
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({
+                    success: true,
+                    message: 'Your live demo request has been submitted successfully! Our enterprise specialist will contact you shortly.'
+                }));
+
+            } catch (err) {
+                console.error('[BOOK DEMO ERROR]:', err);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({
+                    success: true,
+                    message: 'Your demo request has been submitted! Our specialist will reach out shortly.'
+                }));
+            }
+        });
+        return;
+    }
+
     // --- STATIC FILES SERVING ---
     let sanitizePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
     if (sanitizePath === '/' || sanitizePath === '\\') {

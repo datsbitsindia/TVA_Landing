@@ -199,11 +199,17 @@ a {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-family: 'Outfit', sans-serif;
     font-size: 22px;
     font-weight: 800;
     color: var(--text-heading);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo span {
+    white-space: nowrap;
 }
 
 .logo-icon {
@@ -217,6 +223,7 @@ a {
     color: #fff;
     font-size: 20px;
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    flex-shrink: 0;
 }
 
 .logo-tag {
@@ -227,12 +234,14 @@ a {
     background: #dbeafe;
     color: #1d4ed8;
     margin-left: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 14px;
     list-style: none;
     flex: 1;
     justify-content: center;
@@ -1308,10 +1317,90 @@ a {
 .ai-demo-mic,.ai-demo-send { width:38px; height:38px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:var(--transition); }
 .ai-demo-mic { background:#ede9fe; color:#6d28d9; }
 .ai-demo-send { background:linear-gradient(135deg,#2563eb,#4f46e5); color:#fff; box-shadow:0 4px 12px rgba(37,99,235,0.3); }
-.ai-demo-send:hover { transform:scale(1.08); }
-@media (max-width:1100px) { .ai-flow-row { flex-direction:column; align-items:center; } .ai-flow-arrow { transform:rotate(90deg); } }
-@media (max-width:992px) { .ai-caps-grid { grid-template-columns:repeat(2,1fr); } }
-@media (max-width:640px) { .ai-caps-grid { grid-template-columns:1fr; } }
+/* Interactive AI Playground Styles */
+.ai-chip-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 99px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.ai-chip-btn:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
+    background: #f0f9ff;
+}
+
+.ai-playground-bottom-bar {
+    background: #f8fafc;
+    border-top: 1px solid #cbd5e1;
+    padding: 16px 14px;
+}
+
+.ai-playground-chips-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    padding: 4px 0;
+}
+
+.ai-demo-mic.listening {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    animation: pulse-mic 1.2s infinite alternate;
+}
+
+@keyframes pulse-mic {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    100% { transform: scale(1.15); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.ai-typing-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.ai-typing-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+    animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.ai-typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.ai-typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+.ai-widget-box {
+    margin-top: 8px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+}
+
 
 /* FAQ 3-Column Grid Layout */
 .faq-grid {
@@ -1864,3 +1953,532 @@ a {
         order: 2;
     }
 }
+
+/* =========================================
+   INTERACTIVE ROI CALCULATOR SECTION
+   ========================================= */
+.roi-section {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #f4f8ff 0%, #ebf3ff 100%);
+    position: relative;
+}
+
+.roi-badge {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+}
+.roi-badge i {
+    color: #16a34a;
+}
+
+.roi-gradient-text {
+    background: linear-gradient(135deg, #10b981 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.roi-calculator-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(37, 99, 235, 0.05);
+    margin-top: 30px;
+}
+
+/* Currency Toggle Inline Row */
+.roi-currency-inline-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+}
+
+.roi-currency-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.roi-currency-toggle {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: var(--radius-full);
+    border: 1px solid #cbd5e1;
+}
+
+.currency-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 18px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.currency-btn.active {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+}
+
+/* ROI Grid Layout */
+.roi-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 36px;
+    align-items: center;
+}
+
+.roi-inputs-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.roi-input-group {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 18px 22px;
+    border-radius: var(--radius-md);
+}
+
+.roi-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.roi-label-row label {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.roi-val-badge {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+/* Custom Range Slider */
+.roi-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #cbd5e1;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.roi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.roi-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    background: #1d4ed8;
+}
+
+.roi-slider-markers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+/* Quick Presets Row */
+.roi-presets-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed #cbd5e1;
+}
+
+.roi-preset-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-right: 4px;
+}
+
+.roi-preset-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.roi-preset-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Assumption Box */
+.roi-assumption-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #1e40af;
+    line-height: 1.5;
+}
+
+.roi-assumption-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Key Value Impact Chips Grid */
+.roi-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.roi-chip-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Results Card Right Column - Deep Dark Contrast Theme */
+.roi-results-card {
+    background: #0f172a !important;
+    background: linear-gradient(145deg, #0b1329 0%, #1e293b 100%) !important;
+    border: 1px solid #334155 !important;
+    border-radius: var(--radius-lg);
+    padding: 24px 22px;
+    color: #ffffff !important;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.roi-res-header {
+    font-size: 14px;
+    font-weight: 800;
+    color: #94a3b8 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
+}
+.roi-res-header i {
+    color: #10b981;
+}
+
+.roi-stat-box {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid #334155 !important;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+}
+
+.roi-stat-box.highlight {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border: 1px solid rgba(16, 185, 129, 0.45) !important;
+}
+
+.roi-stat-label {
+    font-size: 12px;
+    color: #cbd5e1 !important;
+    font-weight: 700;
+}
+
+.roi-stat-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff !important;
+    margin: 2px 0;
+}
+.roi-stat-val.green {
+    color: #34d399 !important;
+}
+.roi-stat-val.purple {
+    color: #c084fc !important;
+}
+
+.roi-stat-sub {
+    font-size: 10.5px;
+    color: #94a3b8 !important;
+    display: block;
+    font-weight: 500;
+}
+
+.roi-cta-btn {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+@media (max-width: 992px) {
+    .roi-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .roi-calculator-card {
+        padding: 24px;
+    }
+}
+
+/* =========================================
+   BOOK A DEMO MODAL HIGHLIGHT CARD
+   ========================================= */
+.demo-direct-contact-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.demo-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.demo-contact-item i {
+    font-size: 22px;
+}
+
+.demo-contact-item small {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.5px;
+}
+
+.demo-contact-item a {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.demo-contact-item a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .demo-direct-contact-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ENTERPRISE DIRECT CARD BOX (INSIDE PRICING CARD)
+   ========================================= */
+.enterprise-direct-card-box {
+    margin-top: auto;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.direct-box-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.direct-box-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.direct-box-row:last-child {
+    margin-bottom: 0;
+}
+
+.direct-box-row a {
+    color: #0f172a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.direct-box-row a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* =========================================
+   DIRECT ENTERPRISE CONTACT SECTION & BANNER
+   ========================================= */
+.direct-contact-section {
+    padding: 20px 0 70px 0;
+    background: var(--bg-body);
+}
+
+.direct-contact-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 2px solid #3b82f6;
+    border-radius: var(--radius-lg);
+    padding: 30px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+}
+
+.direct-contact-info h3 {
+    font-size: 22px;
+    color: var(--text-heading);
+    margin-bottom: 6px;
+    font-weight: 800;
+}
+
+.direct-contact-info p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.direct-contact-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-detail-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+.contact-detail-box:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12);
+}
+
+.contact-detail-box .contact-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.contact-detail-box small {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.contact-detail-box a {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-heading);
+    text-decoration: none;
+}
+
+.contact-detail-box a:hover {
+    color: #2563eb;
+}
+
+@media (max-width: 992px) {
+    .direct-contact-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: stretch;
+    }
+    .direct-contact-details {
+        flex-direction: column;
+    }
+}
+
+
+
