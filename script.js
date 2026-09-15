@@ -1,4 +1,4 @@
-// PTMS UNO SaaS Landing Page Script
+// TVA SaaS Landing Page Script
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Sticky Navbar Scroll Effect
@@ -56,15 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.triggerDownloadModal = function(platform) {
         currentPlatform = platform;
         if (platform === 'exe') {
-            modalTitle.innerHTML = '<i class="fa-brands fa-windows" style="color:#2563eb;"></i> PTMS UNO for Windows (.EXE)';
+            modalTitle.innerHTML = '<i class="fa-brands fa-windows" style="color:#2563eb;"></i> TVA for Windows (.EXE)';
             modalDesc.textContent = 'Version v2.4.0 (64-bit Installer) for Windows 10 & 11. Includes auto-updates and desktop notifications.';
-            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download PTMS_Setup_v2.4.0.exe';
+            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download TVA_Setup_v2.4.0.exe';
         } else if (platform === 'apk') {
-            modalTitle.innerHTML = '<i class="fa-brands fa-android" style="color:#10b981;"></i> PTMS UNO for Android (.APK)';
+            modalTitle.innerHTML = '<i class="fa-brands fa-android" style="color:#10b981;"></i> TVA for Android (.APK)';
             modalDesc.textContent = 'Version v2.4.0 APK for Android 8.0+. Direct install package with mobile push notifications support.';
-            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download PTMS_v2.4.0.apk';
+            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download TVA_v2.4.0.apk';
         } else {
-            modalTitle.innerHTML = '<i class="fa-solid fa-globe" style="color:#2563eb;"></i> PTMS Cloud Web App';
+            modalTitle.innerHTML = '<i class="fa-solid fa-globe" style="color:#2563eb;"></i> TVA Cloud Web App';
             modalDesc.textContent = 'Instant cloud access directly in your browser. No installation required.';
             confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Open Web Dashboard';
         }
@@ -603,9 +603,9 @@ function generateAIResponse(input) {
 
     // Fallback / General Query Response
     return `
-        🤖 <strong>PTMS AI Assistant Response:</strong><br>
+        🤖 <strong>TVA AI Assistant Response:</strong><br>
         I processed your input: <em>"${escapeHtml(input)}"</em>.<br><br>
-        Because PTMS uses live database context scoping, I can execute task assignments, run routine schedules, and fetch real-time multi-tenant analytics on your database.
+        Because TVA uses live database context scoping, I can execute task assignments, run routine schedules, and fetch real-time multi-tenant analytics on your database.
         <div class="ai-widget-box" style="border-left:3px solid #8b5cf6;">
             <i class="fa-solid fa-wand-magic-sparkles" style="color:#8b5cf6;"></i> Try typing: <strong>"Create high priority task for Sarah"</strong> or click any preset chip above!
         </div>

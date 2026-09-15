@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "ptms-landing-web",
+      name: "tva-landing-web",
       script: "server.js",
       cwd: "./",
       watch: false,
@@ -12,8 +12,8 @@ module.exports = {
         DB_PORT: 3306,
         DB_USER: "root",
         DB_PASSWORD: "",
-        DB_NAME: "ptms_uno",
-        TABLE_PREFIX: "uno_"
+        DB_NAME: "tva_db",
+        TABLE_PREFIX: "tva_"
       }
     }
   ]

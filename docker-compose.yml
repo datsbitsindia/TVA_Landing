@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  ptms-landing:
+  tva-landing:
     build: .
-    container_name: ptms-landing-web
+    container_name: tva-landing-web
     ports:
       - "8090:8090"
     extra_hosts:
@@ -14,7 +14,7 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=
-      - DB_NAME=ptms_uno
-      - TABLE_PREFIX=uno_
+      - DB_NAME=tva_db
+      - TABLE_PREFIX=tva_
       - NODE_ENV=production
     restart: always

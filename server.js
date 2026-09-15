@@ -12,10 +12,10 @@ const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_PORT = Number(process.env.DB_PORT) || 3306;
 const DB_USER = process.env.DB_USER || 'root';
 const DB_PASSWORD = process.env.DB_PASSWORD || '';
-const DB_NAME = process.env.DB_NAME || 'ptms_uno';
-const TABLE_PREFIX = process.env.TABLE_PREFIX || 'uno_';
+const DB_NAME = process.env.DB_NAME || 'tva_db';
+const TABLE_PREFIX = process.env.TABLE_PREFIX || 'tva_';
 
-// MySQL Connection Pool (Same host database as PTMS_UNO)
+// MySQL Connection Pool (Same host database as TVA)
 let dbPool = null;
 
 async function getDbPool() {
