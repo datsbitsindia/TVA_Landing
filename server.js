@@ -105,7 +105,9 @@ const MIME_TYPES = {
     '.woff': 'font/woff',
     '.woff2': 'font/woff2',
     '.ttf': 'font/ttf',
-    '.json': 'application/json'
+    '.json': 'application/json',
+    '.apk': 'application/vnd.android.package-archive',
+    '.exe': 'application/octet-stream'
 };
 
 // Main HTTP Server

@@ -92,6 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmDownloadBtn.addEventListener('click', () => {
             showCustomAlert('Download Started', `Starting download for ${currentPlatform.toUpperCase()} package...`, false);
             downloadModal.classList.remove('open');
+            
+            // Trigger actual download
+            if (currentPlatform === 'exe') {
+                window.location.href = '/downloads/TVA_Setup.exe';
+            } else if (currentPlatform === 'apk') {
+                window.location.href = '/downloads/TVA_App.apk';
+            } else if (currentPlatform === 'web') {
+                window.open('https://app.tvatask.com', '_blank');
+            }
         });
     }
 
