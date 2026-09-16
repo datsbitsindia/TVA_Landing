@@ -310,10 +310,40 @@ a {
 
 .hero-cta {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.hero-cta-top {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.hero-cta-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     flex-wrap: wrap;
+    width: 100%;
+}
+
+.hero-btn-main {
+    padding: 15px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.32);
+}
+
+.hero-btn-sub {
+    padding: 12px 20px;
+    font-size: 14.5px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 /* DUAL SIDE-BY-SIDE APP SHOWCASE LAYOUT (Equal Height Desktop + Mobile) */

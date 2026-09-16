@@ -48,10 +48,14 @@
                 <p class="hero-subtitle">TVA is the complete task and project management software. Assign tasks to multiple team members, automate daily recurring routines, track real-time project progress, and chat directly inside every task.</p>
                 
                 <div class="hero-cta">
-                    <button onclick="openOrgRegisterModal()" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;"><i class="fa-solid fa-building-user"></i> Get Your Own Organization</button>
-                    <button onclick="window.open('https://app.tvatask.com', '_blank')" class="btn btn-secondary" style="padding: 16px 24px; font-size: 16px;"><i class="fa-solid fa-globe"></i> Web Version</button>
-                    <button onclick="triggerDownloadModal('exe')" class="btn btn-secondary" style="padding: 16px 24px; font-size: 16px;"><i class="fa-brands fa-windows"></i> Windows (.EXE)</button>
-                    <button onclick="triggerDownloadModal('apk')" class="btn btn-secondary" style="padding: 16px 24px; font-size: 16px;"><i class="fa-brands fa-android"></i> Android (.APK)</button>
+                    <div class="hero-cta-top">
+                        <button onclick="openOrgRegisterModal()" class="btn btn-primary hero-btn-main"><i class="fa-solid fa-building-user"></i> Get Your Own Organization</button>
+                    </div>
+                    <div class="hero-cta-bottom">
+                        <button onclick="window.open('https://app.tvatask.com', '_blank')" class="btn btn-secondary hero-btn-sub"><i class="fa-solid fa-globe"></i> Web Version</button>
+                        <button onclick="triggerDownloadModal('exe')" class="btn btn-secondary hero-btn-sub"><i class="fa-brands fa-windows"></i> Windows (.EXE)</button>
+                        <button onclick="triggerDownloadModal('apk')" class="btn btn-secondary hero-btn-sub"><i class="fa-brands fa-android"></i> Android (.APK)</button>
+                    </div>
                 </div>
             </div>
 
