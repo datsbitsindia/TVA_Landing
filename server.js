@@ -107,7 +107,8 @@ const MIME_TYPES = {
     '.ttf': 'font/ttf',
     '.json': 'application/json',
     '.apk': 'application/vnd.android.package-archive',
-    '.exe': 'application/octet-stream'
+    '.exe': 'application/octet-stream',
+    '.zip': 'application/zip'
 };
 
 // Main HTTP Server

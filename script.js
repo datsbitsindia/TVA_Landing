@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.triggerDownloadModal = function(platform) {
         currentPlatform = platform;
         if (platform === 'exe') {
-            modalTitle.innerHTML = '<i class="fa-brands fa-windows" style="color:#2563eb;"></i> TVA for Windows (.EXE)';
+            modalTitle.innerHTML = '<i class="fa-brands fa-windows" style="color:#2563eb;"></i> TVA for Windows (.ZIP)';
             modalDesc.textContent = 'Version v2.4.0 (64-bit Installer) for Windows 10 & 11. Includes auto-updates and desktop notifications.';
-            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download TVA_Setup_v2.4.0.exe';
+            confirmDownloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download TVA_Setup_v2.4.0.zip';
         } else if (platform === 'apk') {
             modalTitle.innerHTML = '<i class="fa-brands fa-android" style="color:#10b981;"></i> TVA for Android (.APK)';
             modalDesc.textContent = 'Version v2.4.0 APK for Android 8.0+. Direct install package with mobile push notifications support.';
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Trigger actual download
             if (currentPlatform === 'exe') {
-                window.location.href = '/downloads/TVA_Setup.exe';
+                window.location.href = '/downloads/TVA_Setup.zip';
             } else if (currentPlatform === 'apk') {
                 window.location.href = '/downloads/TVA_App.apk';
             } else if (currentPlatform === 'web') {
