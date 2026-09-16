@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========================================
 // INTERACTIVE ROI CALCULATOR LOGIC
 // =========================================
-let currentRoiCurrency = 'USD';
+let currentRoiCurrency = 'INR';
 
 window.setRoiCurrency = function(curr) {
     currentRoiCurrency = curr;
