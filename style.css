@@ -2863,142 +2863,139 @@ a {
 }
 
 /* ==========================================================================
-   APP OVERVIEW & MOCKUP AUTO-SHRINK FOR MOBILE VIEWPORT (MOBILE ONLY)
+   APP PREVIEW SECTION — MOBILE-ONLY REDESIGN (Desktop untouched ≥ 993px)
    ========================================================================== */
 
+/* On mobile: stack all showcase rows vertically, text always on top */
 @media (max-width: 992px) {
-    /* Showcase Row Layout */
     .feature-showcase-row {
         flex-direction: column !important;
-        gap: 24px !important;
+        gap: 0 !important;
     }
     .feature-showcase-row.reverse {
         flex-direction: column !important;
     }
-    .showcase-screen-wrap {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow: hidden !important;
-    }
-}
 
-@media (max-width: 768px) {
-    /* Collapse Mockup Sidebar to Icon-Only on Mobile to maximize main content space */
-    .showcase-screen-wrap .app-mock-sidebar {
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        padding: 6px 2px !important;
-        overflow: hidden !important;
-    }
-    .showcase-screen-wrap .app-mock-sidebar img {
-        height: 18px !important;
-        max-width: 28px !important;
-    }
-    .showcase-screen-wrap .mock-sidebar-brand {
-        padding-bottom: 6px !important;
-        margin-bottom: 4px !important;
-        justify-content: center !important;
-    }
-    .showcase-screen-wrap .mock-sidebar-brand span {
+    /* --- Text block comes FIRST on mobile, screen mockup is HIDDEN --- */
+    .showcase-screen-wrap {
         display: none !important;
     }
-    .showcase-screen-wrap .mock-sidebar-item {
-        justify-content: center !important;
-        padding: 8px 0 !important;
-        font-size: 0 !important;
-        border-radius: 6px !important;
+
+    /* Text block fills full width and gets a beautiful premium card treatment */
+    .showcase-text-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 28px 20px 32px !important;
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 20px !important;
+        margin: 0 0 20px 0 !important;
+        box-shadow: 0 4px 24px rgba(37, 99, 235, 0.06), 0 1px 4px rgba(15,23,42,0.04) !important;
+        position: relative !important;
+        overflow: hidden !important;
     }
-    .showcase-screen-wrap .mock-sidebar-item i {
+
+    /* Gradient top accent line on each card */
+    .showcase-text-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #2563eb 0%, #4f46e5 50%, #0ea5e9 100%);
+        border-radius: 20px 20px 0 0;
+    }
+
+    /* Module badge */
+    .showcase-badge {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 7px !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        padding: 5px 12px !important;
+        border-radius: 99px !important;
+        background: #eff6ff !important;
+        color: #2563eb !important;
+        border: 1px solid #bfdbfe !important;
+        margin-bottom: 14px !important;
+        letter-spacing: 0.3px !important;
+        text-transform: uppercase !important;
+    }
+
+    /* Heading */
+    .showcase-text-content h3 {
+        font-size: 1.35rem !important;
+        line-height: 1.3 !important;
+        color: #0f172a !important;
+        margin-bottom: 10px !important;
+        font-weight: 800 !important;
+    }
+
+    /* Description paragraph */
+    .showcase-text-content > p {
         font-size: 14px !important;
+        color: #475569 !important;
+        line-height: 1.7 !important;
+        margin-bottom: 18px !important;
+    }
+
+    /* Feature bullet list */
+    .showcase-feature-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        list-style: none !important;
+        padding: 0 !important;
         margin: 0 !important;
     }
 
-    /* Adjust Mockup Main Body for Mobile Frame Fit */
-    .showcase-screen-wrap .app-mock-main {
-        padding: 8px 8px 30px 8px !important;
-        width: calc(100% - 44px) !important;
+    .showcase-feature-list li {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        font-size: 13.5px !important;
+        color: #334155 !important;
+        padding: 10px 12px !important;
+        background: #f8fafc !important;
+        border-radius: 10px !important;
+        border: 1px solid #f1f5f9 !important;
+    }
+
+    .showcase-feature-list li i {
+        color: #2563eb !important;
+        font-size: 13px !important;
+        margin-top: 2px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .showcase-feature-list li strong {
+        color: #0f172a !important;
+        font-weight: 700 !important;
+        display: block !important;
+        margin-bottom: 2px !important;
+        font-size: 13px !important;
+    }
+
+    .showcase-feature-list li div {
         flex: 1 !important;
-        overflow-x: hidden !important;
+        line-height: 1.55 !important;
     }
 
-    /* Mockup Header Scaling */
-    .showcase-screen-wrap .dt-header {
-        padding: 6px 8px !important;
-        gap: 4px !important;
-        flex-wrap: wrap !important;
-    }
-    .showcase-screen-wrap .dt-username {
-        font-size: 11px !important;
-    }
-    .showcase-screen-wrap .dt-role {
-        font-size: 8.5px !important;
-    }
-    .showcase-screen-wrap .dt-btn-primary, 
-    .showcase-screen-wrap .dt-btn-logout {
-        padding: 4px 6px !important;
-        font-size: 9.5px !important;
-        border-radius: 6px !important;
+    /* Section header for app preview */
+    .feature-showcase-container {
+        padding: 8px 0 !important;
     }
 
-    /* KPI Grids inside Showcase Mockups */
-    .showcase-screen-wrap .mock-kpi-bar,
-    .showcase-screen-wrap .dt-kpi-bar,
-    .showcase-screen-wrap div[style*="grid-template-columns:repeat(4,1fr)"],
-    .showcase-screen-wrap div[style*="grid-template-columns: repeat(4, 1fr)"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 4px !important;
-    }
-    .showcase-screen-wrap .mock-kpi-card {
-        padding: 5px 3px !important;
-    }
-    .showcase-screen-wrap .mock-kpi-card b {
-        font-size: 11.5px !important;
-    }
-    .showcase-screen-wrap .mock-kpi-card span {
-        font-size: 8px !important;
-    }
-
-    /* Task Cards & Columns inside Showcase Mockups */
-    .showcase-screen-wrap .mock-task-card {
-        padding: 6px 8px !important;
-    }
-    .showcase-screen-wrap .mock-task-header {
-        flex-wrap: wrap !important;
-        gap: 4px !important;
-    }
-    .showcase-screen-wrap .mock-task-title {
-        font-size: 10px !important;
-        word-break: break-word !important;
-    }
-    .showcase-screen-wrap .mock-task-columns {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 4px !important;
-        font-size: 8.5px !important;
-    }
-
-    /* Tabs & Search Rows inside Mockups */
-    .showcase-screen-wrap .mock-tabs-bar,
-    .showcase-screen-wrap .mock-search-row {
-        flex-wrap: wrap !important;
-        gap: 4px !important;
-    }
-    .showcase-screen-wrap .mock-search-input {
-        font-size: 9.5px !important;
-        padding: 4px 6px !important;
-        min-width: 0 !important;
-    }
-
-    /* Ensure Mockup Window Title & Controls scale down cleanly */
-    .mockup-window-title {
-        font-size: 10.5px !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        max-width: 220px !important;
+    /* Override the hardcoded inline padding on the #preview container */
+    #preview {
+        padding: 12px 16px 0 16px !important;
+        max-width: 100% !important;
     }
 }
 
+/* Extra padding tweak for very small screens */
 @media (max-width: 576px) {
     .container {
         padding: 0 14px;
@@ -3014,16 +3011,13 @@ a {
         padding: 20px 14px;
     }
 
-    /* Responsive Proportionate Scaling for Mobile Phones */
-    .showcase-screen-wrap .hero-mockup-wrap {
-        padding: 3px !important;
-        border-radius: 12px !important;
+    .showcase-text-content {
+        padding: 22px 16px 26px !important;
+        border-radius: 16px !important;
     }
 
-    .showcase-screen-wrap .mockup-app-layout {
-        zoom: 0.88;
-        -moz-transform: scale(0.88);
-        -moz-transform-origin: 0 0;
+    .showcase-text-content h3 {
+        font-size: 1.2rem !important;
     }
 }
 
@@ -3043,16 +3037,16 @@ a {
         padding: 12px 14px;
     }
 
-    /* Ultra Compact Viewport Scaling for 320px - 380px Mobile Screens */
-    .showcase-screen-wrap .mockup-app-layout {
-        zoom: 0.78;
-        -moz-transform: scale(0.78);
-        -moz-transform-origin: 0 0;
+    .showcase-text-content {
+        padding: 18px 14px 22px !important;
+        border-radius: 14px !important;
     }
-
-    .mockup-window-title {
-        max-width: 150px !important;
-        font-size: 9.5px !important;
+    .showcase-text-content h3 {
+        font-size: 1.1rem !important;
+    }
+    .showcase-feature-list li {
+        font-size: 12.5px !important;
+        padding: 8px 10px !important;
     }
 }
 
