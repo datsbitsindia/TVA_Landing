@@ -2862,6 +2862,143 @@ a {
     }
 }
 
+/* ==========================================================================
+   APP OVERVIEW & MOCKUP AUTO-SHRINK FOR MOBILE VIEWPORT (MOBILE ONLY)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    /* Showcase Row Layout */
+    .feature-showcase-row {
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+    .feature-showcase-row.reverse {
+        flex-direction: column !important;
+    }
+    .showcase-screen-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Collapse Mockup Sidebar to Icon-Only on Mobile to maximize main content space */
+    .showcase-screen-wrap .app-mock-sidebar {
+        width: 44px !important;
+        min-width: 44px !important;
+        max-width: 44px !important;
+        padding: 6px 2px !important;
+        overflow: hidden !important;
+    }
+    .showcase-screen-wrap .app-mock-sidebar img {
+        height: 18px !important;
+        max-width: 28px !important;
+    }
+    .showcase-screen-wrap .mock-sidebar-brand {
+        padding-bottom: 6px !important;
+        margin-bottom: 4px !important;
+        justify-content: center !important;
+    }
+    .showcase-screen-wrap .mock-sidebar-brand span {
+        display: none !important;
+    }
+    .showcase-screen-wrap .mock-sidebar-item {
+        justify-content: center !important;
+        padding: 8px 0 !important;
+        font-size: 0 !important;
+        border-radius: 6px !important;
+    }
+    .showcase-screen-wrap .mock-sidebar-item i {
+        font-size: 14px !important;
+        margin: 0 !important;
+    }
+
+    /* Adjust Mockup Main Body for Mobile Frame Fit */
+    .showcase-screen-wrap .app-mock-main {
+        padding: 8px 8px 30px 8px !important;
+        width: calc(100% - 44px) !important;
+        flex: 1 !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Mockup Header Scaling */
+    .showcase-screen-wrap .dt-header {
+        padding: 6px 8px !important;
+        gap: 4px !important;
+        flex-wrap: wrap !important;
+    }
+    .showcase-screen-wrap .dt-username {
+        font-size: 11px !important;
+    }
+    .showcase-screen-wrap .dt-role {
+        font-size: 8.5px !important;
+    }
+    .showcase-screen-wrap .dt-btn-primary, 
+    .showcase-screen-wrap .dt-btn-logout {
+        padding: 4px 6px !important;
+        font-size: 9.5px !important;
+        border-radius: 6px !important;
+    }
+
+    /* KPI Grids inside Showcase Mockups */
+    .showcase-screen-wrap .mock-kpi-bar,
+    .showcase-screen-wrap .dt-kpi-bar,
+    .showcase-screen-wrap div[style*="grid-template-columns:repeat(4,1fr)"],
+    .showcase-screen-wrap div[style*="grid-template-columns: repeat(4, 1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 4px !important;
+    }
+    .showcase-screen-wrap .mock-kpi-card {
+        padding: 5px 3px !important;
+    }
+    .showcase-screen-wrap .mock-kpi-card b {
+        font-size: 11.5px !important;
+    }
+    .showcase-screen-wrap .mock-kpi-card span {
+        font-size: 8px !important;
+    }
+
+    /* Task Cards & Columns inside Showcase Mockups */
+    .showcase-screen-wrap .mock-task-card {
+        padding: 6px 8px !important;
+    }
+    .showcase-screen-wrap .mock-task-header {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    .showcase-screen-wrap .mock-task-title {
+        font-size: 10px !important;
+        word-break: break-word !important;
+    }
+    .showcase-screen-wrap .mock-task-columns {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 4px !important;
+        font-size: 8.5px !important;
+    }
+
+    /* Tabs & Search Rows inside Mockups */
+    .showcase-screen-wrap .mock-tabs-bar,
+    .showcase-screen-wrap .mock-search-row {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    .showcase-screen-wrap .mock-search-input {
+        font-size: 9.5px !important;
+        padding: 4px 6px !important;
+        min-width: 0 !important;
+    }
+
+    /* Ensure Mockup Window Title & Controls scale down cleanly */
+    .mockup-window-title {
+        font-size: 10.5px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 220px !important;
+    }
+}
+
 @media (max-width: 576px) {
     .container {
         padding: 0 14px;
@@ -2875,6 +3012,18 @@ a {
     }
     .pricing-card {
         padding: 20px 14px;
+    }
+
+    /* Responsive Proportionate Scaling for Mobile Phones */
+    .showcase-screen-wrap .hero-mockup-wrap {
+        padding: 3px !important;
+        border-radius: 12px !important;
+    }
+
+    .showcase-screen-wrap .mockup-app-layout {
+        zoom: 0.88;
+        -moz-transform: scale(0.88);
+        -moz-transform-origin: 0 0;
     }
 }
 
@@ -2892,6 +3041,18 @@ a {
     .hero-btn-main {
         font-size: 13.5px;
         padding: 12px 14px;
+    }
+
+    /* Ultra Compact Viewport Scaling for 320px - 380px Mobile Screens */
+    .showcase-screen-wrap .mockup-app-layout {
+        zoom: 0.78;
+        -moz-transform: scale(0.78);
+        -moz-transform-origin: 0 0;
+    }
+
+    .mockup-window-title {
+        max-width: 150px !important;
+        font-size: 9.5px !important;
     }
 }
 
