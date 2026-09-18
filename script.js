@@ -15,18 +15,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navLinks = document.querySelector('.nav-links');
     if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', () => {
-            const isHidden = getComputedStyle(navLinks).display === 'none';
-            navLinks.style.display = isHidden ? 'flex' : 'none';
-            if (isHidden) {
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.right = '0';
-                navLinks.style.background = '#ffffff';
-                navLinks.style.padding = '20px';
-                navLinks.style.borderBottom = '1px solid #cbd5e1';
+        const toggleIcon = mobileToggle.querySelector('i');
+        
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.toggle('open');
+            if (toggleIcon) {
+                if (isOpen) {
+                    toggleIcon.classList.remove('fa-bars');
+                    toggleIcon.classList.add('fa-xmark');
+                } else {
+                    toggleIcon.classList.remove('fa-xmark');
+                    toggleIcon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        // Close mobile nav when clicking any menu link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-xmark');
+                    toggleIcon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Close mobile nav when clicking outside navbar
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-xmark');
+                    toggleIcon.classList.add('fa-bars');
+                }
             }
         });
     }
