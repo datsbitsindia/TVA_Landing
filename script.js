@@ -351,7 +351,16 @@ window.handleOrgRegisterSubmit = async function(event) {
         });
 
         clearTimeout(timeoutId);
-        const data = await response.json();
+        
+        const contentType = response.headers.get('content-type') || '';
+        let data;
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const errText = await response.text();
+            console.error('Non-JSON response from server (Status ' + response.status + '):', errText.substring(0, 300));
+            throw new Error(`Server returned HTTP ${response.status} (${response.statusText || 'Error'}). If you recently mapped a domain, ensure Nginx proxies /api requests to port 8090.`);
+        }
 
         if (submitBtn) {
             submitBtn.disabled = false;
@@ -482,7 +491,15 @@ window.handleBookDemoSubmit = async function(event) {
             body: JSON.stringify({ name, email, phone, orgName, teamSize, demoDate, notes })
         });
 
-        const data = await response.json();
+        const contentType = response.headers.get('content-type') || '';
+        let data;
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const errText = await response.text();
+            console.error('Non-JSON response from server (Status ' + response.status + '):', errText.substring(0, 300));
+            throw new Error(`Server returned HTTP ${response.status} (${response.statusText || 'Error'}).`);
+        }
 
         if (submitBtn) {
             submitBtn.disabled = false;

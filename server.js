@@ -111,8 +111,22 @@ const MIME_TYPES = {
     '.zip': 'application/zip'
 };
 
+// CORS helper
+function setCorsHeaders(res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
 // Main HTTP Server
 const server = http.createServer(async (req, res) => {
+    setCorsHeaders(res);
+
+    if (req.method === 'OPTIONS') {
+        res.writeHead(204);
+        return res.end();
+    }
+
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
