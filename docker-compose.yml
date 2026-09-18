@@ -4,13 +4,10 @@ services:
   tva-landing:
     build: .
     container_name: tva-landing-web
-    ports:
-      - "8090:8090"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: host
     environment:
       - PORT=8090
-      - DB_HOST=host.docker.internal
+      - DB_HOST=127.0.0.1
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=BHAVIN467
