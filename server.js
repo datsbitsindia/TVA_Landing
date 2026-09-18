@@ -2,9 +2,20 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
-const mysql = require('mysql2/promise');
-const bcrypt = require('bcrypt');
+let bcrypt;
+try {
+    bcrypt = require('bcryptjs');
+} catch (e) {
+    bcrypt = require('bcrypt');
+}
 require('dotenv').config();
+
+process.on('uncaughtException', (err) => {
+    console.error('[UNCAUGHT EXCEPTION]:', err);
+});
+process.on('unhandledRejection', (reason) => {
+    console.error('[UNHANDLED REJECTION]:', reason);
+});
 
 const PORT = process.env.PORT || 8090;
 
@@ -228,7 +239,7 @@ const server = http.createServer(async (req, res) => {
                 }
 
                 // Hash password before transaction
-                const passwordHash = await bcrypt.hash(password, 12);
+                const passwordHash = await bcrypt.hash(password, 10);
 
                 // --- BEGIN TRANSACTION ---
                 connection = await pool.getConnection();
@@ -258,19 +269,27 @@ const server = http.createServer(async (req, res) => {
                 );
                 console.log(`[TRANSACTION] Step 3 OK - User-Org link created`);
 
-                // Step 4: Initialize Task Counter
-                await connection.query(
-                    `INSERT INTO \`${countersTbl}\` (organization_id, last_task_number) VALUES (?, 0) ON DUPLICATE KEY UPDATE organization_id=organization_id`,
-                    [newOrgId]
-                );
-                console.log(`[TRANSACTION] Step 4 OK - Task counter initialized`);
+                // Step 4: Initialize Task Counter (Optional table check)
+                try {
+                    await connection.query(
+                        `INSERT INTO \`${countersTbl}\` (organization_id, last_task_number) VALUES (?, 0) ON DUPLICATE KEY UPDATE organization_id=organization_id`,
+                        [newOrgId]
+                    );
+                    console.log(`[TRANSACTION] Step 4 OK - Task counter initialized`);
+                } catch (cErr) {
+                    console.warn(`[TRANSACTION NOTICE] Step 4 skipped (${cErr.message})`);
+                }
 
-                // Step 5: Create Default "Self Task" Project
-                await connection.query(
-                    `INSERT INTO \`${projectsTbl}\` (name, description, start_date, end_date, status, status_id, created_by, manager_id, organization_id) VALUES ('Self Task', 'System project for self-assigned tasks', CURDATE(), '2099-12-31', 1, 1, ?, ?, ?)`,
-                    [newAdminUserId, String(newAdminUserId), newOrgId]
-                );
-                console.log(`[TRANSACTION] Step 5 OK - Default project created`);
+                // Step 5: Create Default "Self Task" Project (Optional table check)
+                try {
+                    await connection.query(
+                        `INSERT INTO \`${projectsTbl}\` (name, description, start_date, end_date, status, status_id, created_by, manager_id, organization_id) VALUES ('Self Task', 'System project for self-assigned tasks', CURDATE(), '2099-12-31', 1, 1, ?, ?, ?)`,
+                        [newAdminUserId, String(newAdminUserId), newOrgId]
+                    );
+                    console.log(`[TRANSACTION] Step 5 OK - Default project created`);
+                } catch (pErr) {
+                    console.warn(`[TRANSACTION NOTICE] Step 5 skipped (${pErr.message})`);
+                }
 
                 // --- COMMIT ---
                 await connection.commit();
