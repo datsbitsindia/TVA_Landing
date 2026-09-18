@@ -691,3 +691,48 @@ window.togglePlaygroundMic = function() {
     }, 35);
 };
 
+// =========================================
+// PRIVACY POLICY & TERMS OF SERVICE MODALS
+// =========================================
+window.openPrivacyModal = function() {
+    const modal = document.getElementById('privacy-modal');
+    if (modal) modal.classList.add('open');
+};
+
+window.closePrivacyModal = function() {
+    const modal = document.getElementById('privacy-modal');
+    if (modal) modal.classList.remove('open');
+};
+
+window.openTermsModal = function() {
+    const modal = document.getElementById('terms-modal');
+    if (modal) modal.classList.add('open');
+};
+
+window.closeTermsModal = function() {
+    const modal = document.getElementById('terms-modal');
+    if (modal) modal.classList.remove('open');
+};
+
+// Close legal modals on backdrop click
+document.addEventListener('DOMContentLoaded', () => {
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+
+    if (privacyModal) {
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                closePrivacyModal();
+            }
+        });
+    }
+
+    if (termsModal) {
+        termsModal.addEventListener('click', (e) => {
+            if (e.target === termsModal) {
+                closeTermsModal();
+            }
+        });
+    }
+});
+

@@ -1174,14 +1174,13 @@
                         <li><a href="#downloads">Download .APK</a></li>
                         <li><a href="#pricing">Pricing Plans</a></li>
                     </ul>
-                </div>
-
-                <div class="footer-col">
+                   <div class="footer-col">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#faq">FAQ & Docs</a></li>
-                        <li><a href="#">Live Web App</a></li>
-                        <li><a href="#">Release Notes</a></li>
+                        <li><a href="#faq">FAQ &amp; Docs</a></li>
+                        <li><a href="http://43.205.188.68:3000/login" target="_blank"><i class="fa-solid fa-globe"></i> Live Web App</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPrivacyModal()"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTermsModal()"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
                     </ul>
                 </div>
 
@@ -1191,8 +1190,8 @@
                         <li><a href="mailto:bhavin1.dba@gmail.com"><i class="fa-solid fa-envelope"></i> bhavin1.dba@gmail.com</a></li>
                         <li><a href="tel:+918866083900"><i class="fa-solid fa-phone"></i> +91 88660 83900</a></li>
                         <li><a href="tel:+917016054709"><i class="fa-solid fa-phone"></i> +91 70160 54709</a></li>
-                        <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPrivacyModal()"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTermsModal()"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
@@ -1322,8 +1321,6 @@
         </div>
     </div>
 
-
-
     <!-- 2. CUSTOM USER-FRIENDLY ALERT POPUP MODAL -->
     <div class="modal-overlay" id="custom-alert-modal" style="z-index: 2000;">
         <div class="modal-content modal-sm" style="text-align: center;">
@@ -1340,7 +1337,7 @@
     <div class="modal-overlay" id="org-success-modal" style="z-index: 1900;">
         <div class="modal-content modal-md" style="text-align: center;">
             <div style="font-size: 56px; margin-bottom: 12px; color: #10b981;"><i class="fa-solid fa-circle-check"></i></div>
-            <h3 style="margin-bottom: 6px; font-size: 24px; color: #0f172a;">Organization Provisioned! ð</h3>
+            <h3 style="margin-bottom: 6px; font-size: 24px; color: #0f172a;">Organization Provisioned! 🎉</h3>
             <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Your dedicated organization tenant and admin account are ready.</p>
 
             <div class="success-details-card">
@@ -1364,6 +1361,138 @@
             </div>
 
             <button onclick="closeOrgSuccessModal()" class="btn-text-close">Close Window</button>
+        </div>
+    </div>
+
+    <!-- 4. PRIVACY POLICY MODAL -->
+    <div class="modal-overlay" id="privacy-modal" style="z-index: 2000;">
+        <div class="modal-content modal-lg legal-modal-content">
+            <button class="modal-close" onclick="closePrivacyModal()">&times;</button>
+            <div class="legal-modal-header">
+                <div class="legal-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <h3>Privacy Policy</h3>
+                    <p class="legal-badge"><i class="fa-solid fa-calendar-check"></i> Effective Date: September 18, 2026 | TVA SaaS Platform</p>
+                </div>
+            </div>
+            
+            <div class="legal-modal-body">
+                <section class="legal-section">
+                    <h4>1. Information We Collect</h4>
+                    <p>When you register an organization or use the TVA Task &amp; Project Management SaaS platform, we collect the following categories of information:</p>
+                    <ul>
+                        <li><strong>Administrator &amp; User Account Details:</strong> Name, work email address, phone number, organization name, and job title/designation.</li>
+                        <li><strong>Organizational &amp; Task Data:</strong> Task titles, descriptions, project hierarchy, team assignments, task forwarding history, comments, and file attachments uploaded to the platform.</li>
+                        <li><strong>Routine &amp; Performance Metrics:</strong> Daily routine completion logs, performance KPIs, and attendance/check-in timestamps.</li>
+                        <li><strong>Device &amp; Log Information:</strong> IP address, browser type, operating system version, and system access logs for database security audits.</li>
+                    </ul>
+                </section>
+
+                <section class="legal-section">
+                    <h4>2. How We Use Your Information</h4>
+                    <p>We use collected data solely to deliver, maintain, and enhance the TVA SaaS ecosystem:</p>
+                    <ul>
+                        <li>Provisioning isolated tenant databases and administrator control panels.</li>
+                        <li>Facilitating task assignments, real-time status updates, and push notifications across Web, Windows (.EXE), and Android (.APK) platforms.</li>
+                        <li>Processing AI Assistant queries (using Gemini and FastMCP integrations) securely against your active tenant context.</li>
+                        <li>Generating analytics, team productivity reports, and task audit trail logs.</li>
+                    </ul>
+                </section>
+
+                <section class="legal-section">
+                    <h4>3. Data Security &amp; Storage Architecture</h4>
+                    <p>We implement enterprise-grade security measures to safeguard your organizational data:</p>
+                    <ul>
+                        <li><strong>Password Protection:</strong> Industry-standard Bcrypt password hashing (12 rounds).</li>
+                        <li><strong>Role-Based Access Control (RBAC):</strong> Strict session authentication and authorization middleware protecting Admin, Manager, and Employee tiers.</li>
+                        <li><strong>Multi-Tenant Isolation:</strong> Organizational data is strictly scoped per tenant to prevent cross-organization data leakage.</li>
+                        <li><strong>Audit Event Triggers:</strong> Critical operational actions are immutably recorded in system audit logs.</li>
+                    </ul>
+                </section>
+
+                <section class="legal-section">
+                    <h4>4. Data Sharing &amp; Third-Party Services</h4>
+                    <p>We strictly adhere to a privacy-first policy. We do <strong>NOT</strong> sell, trade, rent, or monetize your personal or organizational data to third parties. Data is only processed through encrypted integration pipelines for essential operational features.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>5. User Data Rights &amp; Control</h4>
+                    <p>Organization Administrators have complete control over their team data. Users have the right to request profile updates, data exports, or permanent removal of their user accounts by contacting their organization admin or our support team.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>6. Contact Us</h4>
+                    <p>If you have any questions or concerns regarding this Privacy Policy, please reach out to us:</p>
+                    <div class="legal-contact-card">
+                        <div><i class="fa-solid fa-building"></i> <strong>Datsbits India / TVA SaaS Support</strong></div>
+                        <div><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:bhavin1.dba@gmail.com">bhavin1.dba@gmail.com</a></div>
+                        <div><i class="fa-solid fa-phone"></i> Phone: +91 88660 83900 / +91 70160 54709</div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="legal-modal-footer">
+                <button class="btn btn-primary" onclick="closePrivacyModal()"><i class="fa-solid fa-check"></i> I Understand &amp; Agree</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. TERMS OF SERVICE MODAL -->
+    <div class="modal-overlay" id="terms-modal" style="z-index: 2000;">
+        <div class="modal-content modal-lg legal-modal-content">
+            <button class="modal-close" onclick="closeTermsModal()">&times;</button>
+            <div class="legal-modal-header">
+                <div class="legal-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;"><i class="fa-solid fa-file-contract"></i></div>
+                <div>
+                    <h3>Terms of Service</h3>
+                    <p class="legal-badge"><i class="fa-solid fa-calendar-check"></i> Effective Date: September 18, 2026 | TVA Platform Agreement</p>
+                </div>
+            </div>
+            
+            <div class="legal-modal-body">
+                <section class="legal-section">
+                    <h4>1. Acceptance of Terms</h4>
+                    <p>By accessing the TVA web application, registering an organization, or downloading the native Windows (.EXE) or Android (.APK) software, you agree to be bound by these Terms of Service. If you do not agree, you must refrain from using the platform.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>2. Service Description &amp; Subscription</h4>
+                    <p>TVA provides an all-in-one task management, daily routine automation, project tracking, and AI-assisted workflow platform. Access is granted on a multi-tenant subscription basis, subject to plan limits (Starter, Pro, or Enterprise).</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>3. Organization Account &amp; Responsibilities</h4>
+                    <ul>
+                        <li><strong>Account Provisioning:</strong> Organization Administrators are responsible for creating valid account credentials and selecting appropriate user roles (Admin, Manager, Employee).</li>
+                        <li><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your organization's login credentials. Any activity conducted under your organization's admin ID is your responsibility.</li>
+                        <li><strong>Acceptable Use:</strong> Users must not upload malicious files, attempt to breach multi-tenant security boundaries, or reverse-engineer the TVA software architecture.</li>
+                    </ul>
+                </section>
+
+                <section class="legal-section">
+                    <h4>4. Intellectual Property Rights</h4>
+                    <p>All software code, database structures, interface designs, logos, and documentation related to TVA remain the exclusive intellectual property of Datsbits India. Subscribers receive a non-exclusive, non-transferable right to access and use the platform during their active subscription term.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>5. System Availability &amp; Service Levels</h4>
+                    <p>We strive to maintain maximum platform uptime across Web, Desktop, and Mobile clients. Scheduled maintenance windows will be communicated in advance. We provide live sync checks and automated database initialization for high availability.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>6. Limitation of Liability</h4>
+                    <p>To the maximum extent permitted by applicable law, TVA and Datsbits India shall not be liable for any indirect, incidental, or consequential damages arising out of system downtime, network connectivity failures, or user misuse of task management workflows.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h4>7. Governing Law &amp; Dispute Resolution</h4>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of India. Any legal disputes shall be subject to the exclusive jurisdiction of the competent courts in India.</p>
+                </section>
+            </div>
+
+            <div class="legal-modal-footer">
+                <button class="btn btn-primary" onclick="closeTermsModal()"><i class="fa-solid fa-check"></i> Accept Terms</button>
+            </div>
         </div>
     </div>
     <!-- Script -->
