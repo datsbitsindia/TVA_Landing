@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const mysql = require('mysql2/promise');
 let bcrypt;
 try {
     bcrypt = require('bcryptjs');
