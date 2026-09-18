@@ -13,7 +13,7 @@ services:
       - DB_HOST=host.docker.internal
       - DB_PORT=3306
       - DB_USER=root
-      - DB_PASSWORD=
+      - DB_PASSWORD=BHAVIN467
       - DB_NAME=tva_db
       - TABLE_PREFIX=tva_
       - NODE_ENV=production
