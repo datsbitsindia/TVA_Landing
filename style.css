@@ -2390,11 +2390,10 @@ a {
 }
 
 .roi-stat-val {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 32px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 26px;
+    font-weight: 800;
     color: #ffffff !important;
     margin: 2px 0;
 }
