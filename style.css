@@ -1,7 +1,9 @@
-/* TVA - Premium White & Light Blue SaaS Landing Theme */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
 
 :root {
+    --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+    --font-serif: 'Instrument Serif', 'Times New Roman', serif;
     --bg-main: #f4f8ff;
     --bg-card: #ffffff;
     --bg-card-hover: #fcfdfe;
@@ -44,7 +46,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
     background-color: var(--bg-main);
     color: var(--text-body);
     line-height: 1.6;
@@ -78,12 +80,32 @@ body::after {
     pointer-events: none;
 }
 
-/* Typography */
+/* Typography & Display System */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     color: var(--text-heading);
-    font-weight: 700;
-    line-height: 1.2;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-feature-settings: "ss01", "cv11";
+}
+
+em, .serif-accent, .ai-gradient-text, .roi-gradient-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.08em;
+    letter-spacing: -0.015em;
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-right: 0.05em;
+}
+
+.badge, .logo-tag, code, pre, .mock-sidebar-item, .mockup-window-title {
+    font-family: var(--font-mono);
 }
 
 a {
@@ -103,18 +125,40 @@ a {
 .badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
+    gap: 10px;
+    padding: 7px 18px 7px 14px;
     border-radius: var(--radius-full);
-    background: #e0edff;
-    border: 1px solid #bfdbfe;
+    background: rgba(224, 237, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(191, 219, 254, 0.9);
     color: #1d4ed8;
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08);
 }
+
+.badge::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.22);
+    animation: badgePulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
+
 .badge i {
     color: #2563eb;
 }
@@ -200,7 +244,7 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     font-size: 22px;
     font-weight: 800;
     color: var(--text-heading);
@@ -287,25 +331,24 @@ a {
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(3rem, 6vw, 4.8rem);
     margin-bottom: 24px;
-    letter-spacing: -1px;
+    letter-spacing: -0.045em;
+    font-weight: 500;
     color: #0f172a;
-}
-
-.hero-title span {
-    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #4f46e5 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 0.96;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-body);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: #475569;
     margin-bottom: 36px;
-    max-width: 720px;
+    max-width: 760px;
+    letter-spacing: -0.01em;
     margin-left: auto;
     margin-right: auto;
+    font-family: var(--font-sans);
 }
 
 .hero-cta {
@@ -447,7 +490,7 @@ a {
     font-size: 14px;
     font-weight: 800;
     color: #0f172a;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .dt-role {
@@ -904,19 +947,24 @@ a {
 
 .section-header {
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto 35px;
+    max-width: 760px;
+    margin: 0 auto 40px;
 }
 
 .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
+    font-size: clamp(2.3rem, 4.5vw, 3.6rem);
+    margin-bottom: 18px;
     color: #0f172a;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+    line-height: 1.05;
 }
 
 .section-desc {
-    font-size: 1.1rem;
-    color: var(--text-body);
+    font-size: 1.15rem;
+    color: #475569;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
 }
 
 .features-grid {
@@ -1086,7 +1134,7 @@ a {
     font-weight: 800;
     color: #0f172a;
     margin: 20px 0 10px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .price-amount span {
@@ -2342,9 +2390,11 @@ a {
 }
 
 .roi-stat-val {
-    font-family: 'Outfit', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
     color: #ffffff !important;
     margin: 2px 0;
 }
