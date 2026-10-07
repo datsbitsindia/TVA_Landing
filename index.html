@@ -164,8 +164,8 @@
                             <ul class="showcase-feature-list">
                                 <li><i class="fa-solid fa-circle-check"></i> <div><strong>8-Card 4x2 Metric Grid:</strong> Track Total Projects, Active Tasks, Workloads &amp; Overdues.</div></li>
                                 <li><i class="fa-solid fa-circle-check"></i> <div><strong>Role-Based Views:</strong> Tailored dashboard layouts for Admin, Manager, and Employee.</div></li>
-                                <li><i class="fa-solid fa-circle-check"></i> <div><strong>Projects Directory:</strong> Complete project list with Start Date, Due Date, and Task counts.</div></li>
-                                <li><i class="fa-solid fa-circle-check"></i> <div><strong>Reports &amp; Analytics:</strong> One-click exportable PDF/Excel performance reports.</div></li>
+                                <li><i class="fa-solid fa-circle-check"></i> <div><strong>Admin Custom Excel Generator:</strong> Popup modal with 5-way dynamic filters (Project, User, Date Period, Status, Priority) &amp; multi-sheet KPI Excel export.</div></li>
+                                <li><i class="fa-solid fa-circle-check"></i> <div><strong>Manager Project Reports:</strong> Project-scoped analytics dashboard with 1-click Excel exporting for assigned project workloads.</div></li>
                             </ul>
                         </div>
                     </div>
@@ -639,6 +639,18 @@
                         <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
                         <h3>Cross-Platform Native Apps</h3>
                         <p>Access via Cloud Web, Windows Desktop (.EXE), or Android Mobile (.APK) for seamless productivity anywhere.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:#ecfdf5;color:#059669;"><i class="fa-solid fa-file-excel"></i></div>
+                        <h3>Admin Multi-Filter Custom Excel Generator</h3>
+                        <p>Generate tailored multi-sheet Excel (.xlsx) reports with dynamic 5-way filtering (Project, Employee, Date Period, Status, Priority). Auto-calculates KPI summaries and prints actual names instead of IDs.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h3>Manager Project-Scoped Analytics</h3>
+                        <p>Specialized project-level reporting engine for Managers. Export project completion rates, overdue alerts, and employee workload metrics in 1-click Excel downloads.</p>
                     </div>
                 </div>
             </div>
@@ -1132,7 +1144,7 @@
                         </div>
                         <div class="faq-item">
                             <div class="faq-question"><span>What reports and analytics does TVA provide?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div>
-                            <div class="faq-answer">Managers get a live <strong>Reports dashboard</strong> with: task breakdown by status, <strong>per-employee completion rates</strong>, project-wise task counts, overdue task alerts, and tasks due in the next 3 days. All data is filtered to the manager's own organization and projects — no data leakage across tenants.</div>
+                            <div class="faq-answer">TVA provides dual reporting engines for Admins and Managers:<br><strong>1. Admin Custom Excel Generator:</strong> Popup modal on the Updates page with 5-way dynamic filters (Project, User/Employee, Date Period, Status, Priority). Leave fields empty for full company dataset, exporting multi-sheet Excel (.xlsx) workbooks with auto KPI calculations.<br><strong>2. Manager Project Reports:</strong> Project-scoped analytics dashboard allowing managers to inspect completion rates, employee workloads, overdue alerts, and export project-specific Excel files in 1 click.</div>
                         </div>
                     </div>
 
@@ -1186,7 +1198,7 @@
                     <ul>
                         <li><a href="#faq">FAQ &amp; Docs</a></li>
                         <li><a href="https://app.tvatask.com" target="_blank"><i class="fa-solid fa-globe"></i> Live Web App</a></li>
-                        <li><a href="javascript:void(0)" onclick="showCustomAlert('Release Notes', 'TVA Version 2.4.0 (Sept 2026) Features:\n• Multi-tenant Organization Architecture\n• AI Task Assistant with Voice (Groq Whisper)\n• Automated Daily Routine Schedules\n• Task Chain-of-Custody Forward Logs\n• Native Windows (.EXE) &amp; Android (.APK) Support', 'info')"><i class="fa-solid fa-code-branch"></i> Release Notes</a></li>
+                        <li><a href="javascript:void(0)" onclick="showCustomAlert('Release Notes', 'TVA Version 2.4.0 Features:\n• Admin Multi-Filter Custom Excel Generator\n• Manager Project-Scoped Report Exporting\n• Multi-tenant Organization Architecture\n• AI Task Assistant with Voice (Groq Whisper)\n• Automated Daily Routine Schedules\n• Native Windows (.EXE) &amp; Android (.APK) Support', 'info')"><i class="fa-solid fa-code-branch"></i> Release Notes</a></li>
                     </ul>
                 </div>
 
